@@ -1,0 +1,21 @@
+version: 1.0.{build}
+build_script:
+- ps: .\build.ps1 -Target "AppVeyor"
+test: off
+
+#---------------------------------#
+#  Skip builds for doc changes    #
+#---------------------------------#
+skip_commits:
+  # Regex for matching commit message
+  message: /\(doc\).*/
+
+#on_finish:
+#  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+#
+
+#---------------------------------#
+# Build cache                     #
+#---------------------------------#
+cache:
+- tools -> build.cake, tools/packages.config
